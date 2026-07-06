@@ -1,11 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import {
-  User,
-  ShoppingBag,
-  Heart,
-  ShoppingCart,
-  LogOut,
-} from "lucide-react";
+import { User, ShoppingBag, Heart, ShoppingCart, LogOut } from "lucide-react";
 
 import Navbar from "../comman/Navbar";
 import Footer from "../comman/Footer";
@@ -13,8 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Profile() {
-
-    const [profileinfo , setProfileinfo]  = useState([])
+  const [profileinfo, setProfileinfo] = useState([]);
 
   const navigate = useNavigate();
 
@@ -23,30 +16,27 @@ function Profile() {
     navigate("/login");
   }
 
-  useEffect(()=>{
+  useEffect(() => {
+    var obj = {
+      token: localStorage.getItem("token"),
+    };
 
-    var obj ={
-        "token":localStorage.getItem("token")
-    }
-    
-    axios.post("https://a2zithub.org/dairy/abi/user_profile",obj).then((res)=>{
-        console.log(res.data.data)
-        setProfileinfo(res.data.data)
-    })
-
-  },[]);
+    axios
+      .post("https://a2zithub.org/dairy/abi/user_profile", obj)
+      .then((res) => {
+        console.log(res.data.data);
+        setProfileinfo(res.data.data);
+      });
+  }, []);
 
   return (
     <>
       <Navbar />
 
       <div className="max-w-7xl mx-auto mt-10 mb-10 border-4 rounded-xl p-6">
-
         <div className="grid grid-cols-12 gap-6">
-
           {/* Left Sidebar */}
           <div className="col-span-3">
-
             <div className="flex justify-center mb-6">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
@@ -56,7 +46,6 @@ function Profile() {
             </div>
 
             <div className="border rounded-xl p-4 shadow-lg">
-
               <Link
                 to="/order_list"
                 className="flex items-center gap-3 p-3 rounded-lg hover:bg-green-100 text-xl"
@@ -96,75 +85,60 @@ function Profile() {
                 <LogOut size={22} />
                 Logout
               </button>
-
             </div>
           </div>
 
           {/* Right Section */}
           <div className="col-span-9 border rounded-xl p-8">
-
-            <h1 className="text-4xl font-bold mb-8">
-              My Profile
-            </h1>
+            <h1 className="text-4xl font-bold mb-8">My Profile</h1>
 
             <div className="grid md:grid-cols-2 gap-8">
-
-            {profileinfo.map((val,index)=>(
-
+              {profileinfo.map((val, index) => (
                 <>
+                  <div>
+                    <label className="font-semibold">Full Name</label>
+                    <input
+                      type="text"
+                      value={val.user_name}
+                      className="w-full border rounded-lg p-3 mt-2"
+                      readOnly
+                    />
+                  </div>
 
-              <div>
-                <label className="font-semibold">Full Name</label>
-                <input
-                  type="text"
-                  value={val.user_name}
-                  className="w-full border rounded-lg p-3 mt-2"
-                  readOnly
-                />
-              </div>
+                  <div>
+                    <label className="font-semibold">Email</label>
+                    <input
+                      type="email"
+                      value={val.user_email}
+                      className="w-full border rounded-lg p-3 mt-2"
+                      readOnly
+                    />
+                  </div>
 
-              <div>
-                <label className="font-semibold">Email</label>
-                <input
-                  type="email"
-                  value={val.user_email}
-                  className="w-full border rounded-lg p-3 mt-2"
-                  readOnly
-                />
-              </div>
+                  <div>
+                    <label className="font-semibold">Mobile</label>
+                    <input
+                      type="text"
+                      value={val.user_mobile}
+                      className="w-full border rounded-lg p-3 mt-2"
+                      readOnly
+                    />
+                  </div>
 
-              <div>
-                <label className="font-semibold">Mobile</label>
-                <input
-                  type="text"
-                  value={val.user_mobile}
-                  className="w-full border rounded-lg p-3 mt-2"
-                  readOnly
-                />
-              </div>
-
-              <div>
-                <label className="font-semibold">Address</label>
-                <input
-                  type="text"
-                  value=""
-                  className="w-full border rounded-lg p-3 mt-2"
-                  readOnly
-                />
-              </div>
-
-              </>
-           
-          ))}
-            
-           </div>
-
-
-
+                  <div>
+                    <label className="font-semibold">Address</label>
+                    <input
+                      type="text"
+                      value=""
+                      className="w-full border rounded-lg p-3 mt-2"
+                      readOnly
+                    />
+                  </div>
+                </>
+              ))}
+            </div>
           </div>
-
         </div>
-
       </div>
 
       <Footer />
