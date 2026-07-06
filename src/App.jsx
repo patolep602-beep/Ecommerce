@@ -7,6 +7,8 @@ import Create_account from "./pages/Create_account"
 import Cart from "./pages/Cart"
 import Checkout from "./pages/Checkout"
 import Order_list from "./pages/Order_list"
+import Order_det from "./pages/Order_det"
+import Profile from "./pages/Profile"
 
 function App() {
   
@@ -23,6 +25,8 @@ function App() {
       <Route path="/Cart" element={<Cart/>}></Route>
       <Route path="/Checkout" element={<Checkout/>}></Route>
       <Route path="/Order_list" element={<Order_list/>}></Route>
+      <Route path="/order_det/:order_id" element={<Order_det/>} />
+      <Route path="/Profile" element={<Profile/>}></Route>
     </Routes>
     </BrowserRouter>
 
